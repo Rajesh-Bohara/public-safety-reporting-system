@@ -1,0 +1,476 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Incident Report Details</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/report_detail.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Leaflet CSS -->
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        Incident Report Details
+
+    </h1>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- ================================= -->
+        <!-- REPORTER INFORMATION -->
+        <!-- ================================= -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-user"></i>
+
+                Reporter Information
+
+            </h2>
+
+
+            {% if report.anonymous or not report.user %}
+
+                <p>
+
+                    <strong>Identity:</strong>
+
+                    <span class="anonymous-user">
+
+                        <i class="fa-solid fa-user-secret"></i>
+
+                        Anonymous
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    <strong>Email:</strong>
+
+                    Not available
+
+                </p>
+
+
+            {% else %}
+
+                <p>
+
+                    <strong>Name:</strong>
+
+                    {{ report.user.first_name|default:report.user.username }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>Email:</strong>
+
+                    {{ report.user.email }}
+
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- INCIDENT INFORMATION -->
+        <!-- ================================= -->
+
+        <div class="card">
+
+            <h2>Incident Information</h2>
+
+
+            <p>
+
+                <strong>Incident:</strong>
+
+                {{ report.incident_type }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Priority:</strong>
+
+                {{ report.priority }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Date & Time:</strong>
+
+                {{ report.incident_datetime }}
+
+            </p>
+
+
+            <hr>
+
+
+            <!-- LOCATION -->
+
+            <h3>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Location Information
+
+            </h3>
+
+
+            <p>
+
+                <strong>Address:</strong><br>
+
+                {{ report.location }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Latitude:</strong>
+
+                {{ report.latitude }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Longitude:</strong>
+
+                {{ report.longitude }}
+
+            </p>
+
+
+            {% if report.latitude and report.longitude %}
+
+
+                <h3>
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    Incident Location Map
+
+                </h3>
+
+
+                <div id="incident-map"></div>
+
+
+                <br>
+
+
+                <a
+                    href="https://www.google.com/maps?q={{ report.latitude }},{{ report.longitude }}"
+                    target="_blank"
+                    class="map-btn">
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    Open in Google Maps
+
+                </a>
+
+
+            {% else %}
+
+
+                <p style="color:red;font-weight:bold;">
+
+                    Location not available.
+
+                </p>
+
+
+            {% endif %}
+
+
+            <hr>
+
+
+            <!-- DESCRIPTION -->
+
+            <p>
+
+                <strong>Description:</strong>
+
+            </p>
+
+
+            <div class="description">
+
+                {{ report.description }}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- EVIDENCE -->
+        <!-- ================================= -->
+
+        <div class="card">
+
+            <h2>Evidence</h2>
+
+
+            {% if report.photo %}
+
+                <img
+                    src="{{ report.photo.url }}"
+                    class="preview-image">
+
+            {% else %}
+
+                <p>No Photo Uploaded</p>
+
+            {% endif %}
+
+
+            <br><br>
+
+
+            {% if report.video %}
+
+                <video controls>
+
+                    <source src="{{ report.video.url }}">
+
+                </video>
+
+            {% else %}
+
+                <p>No Video Uploaded</p>
+
+            {% endif %}
+
+
+            <br><br>
+
+
+            {% if report.audio %}
+
+                <audio controls>
+
+                    <source src="{{ report.audio.url }}">
+
+                </audio>
+
+            {% else %}
+
+                <p>No Audio Uploaded</p>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- ADMIN ACTION -->
+        <!-- ================================= -->
+
+        <div class="card">
+
+            <h2>Admin Action</h2>
+
+
+            <label>Status</label>
+
+
+            <select name="status">
+
+                <option
+                    value="Pending"
+                    {% if report.status == "Pending" %}
+                        selected
+                    {% endif %}>
+
+                    Pending
+
+                </option>
+
+
+                <option
+                    value="Under Review"
+                    {% if report.status == "Under Review" %}
+                        selected
+                    {% endif %}>
+
+                    Under Review
+
+                </option>
+
+
+                <option
+                    value="Resolved"
+                    {% if report.status == "Resolved" %}
+                        selected
+                    {% endif %}>
+
+                    Resolved
+
+                </option>
+
+
+                <option
+                    value="Rejected"
+                    {% if report.status == "Rejected" %}
+                        selected
+                    {% endif %}>
+
+                    Rejected
+
+                </option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <label>Admin Remark</label>
+
+
+            <textarea
+                name="admin_remark"
+                rows="6">{{ report.admin_remark }}</textarea>
+
+
+        </div>
+
+
+        <!-- ================================= -->
+        <!-- BUTTONS -->
+        <!-- ================================= -->
+
+        <div class="buttons">
+
+            <button type="submit">
+
+                Save Changes
+
+            </button>
+
+
+            <a href="{% url 'admin_reports' %}">
+
+                Back
+
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<!-- ================================= -->
+<!-- LEAFLET JS -->
+<!-- ================================= -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<script>
+
+const latitude =
+    parseFloat("{{ report.latitude|default:'' }}");
+
+const longitude =
+    parseFloat("{{ report.longitude|default:'' }}");
+
+
+if (!isNaN(latitude) && !isNaN(longitude)) {
+
+    const map =
+        L.map("incident-map")
+         .setView(
+             [latitude, longitude],
+             16
+         );
+
+
+    L.tileLayer(
+
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+        {
+            attribution:
+                "© OpenStreetMap contributors"
+        }
+
+    ).addTo(map);
+
+
+    L.marker(
+        [latitude, longitude]
+    )
+
+    .addTo(map)
+
+    .bindPopup(
+        "Incident Location"
+    )
+
+    .openPopup();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

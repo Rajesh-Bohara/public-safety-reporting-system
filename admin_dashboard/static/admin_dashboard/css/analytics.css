@@ -1,0 +1,295 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+
+/* ==========================================
+   MAIN CONTAINER
+========================================== */
+
+.analytics-container {
+    padding: 30px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.analytics-header h1 {
+    margin: 0 0 8px;
+
+    font-size: 30px;
+
+    color: #111827;
+}
+
+.analytics-header p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+
+.back-btn {
+    text-decoration: none;
+
+    background: #111827;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* ==========================================
+   STATISTICS GRID
+========================================== */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+
+/* ==========================================
+   STAT CARD
+========================================== */
+
+.stat-card {
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+.stat-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eef2ff;
+
+    font-size: 22px;
+}
+
+
+.stat-content h3 {
+
+    margin: 0;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    color: #6b7280;
+}
+
+
+.stat-number {
+
+    margin-top: 6px;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+/* ==========================================
+   CHART GRID
+========================================== */
+
+.charts-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+/* ==========================================
+   CHART CARD
+========================================== */
+
+.chart-card {
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+.chart-card.full-width {
+
+    grid-column: 1 / -1;
+}
+
+
+.chart-header {
+
+    margin-bottom: 15px;
+}
+
+
+.chart-header h2 {
+
+    margin: 0 0 5px;
+
+    font-size: 19px;
+
+    color: #111827;
+}
+
+
+.chart-header p {
+
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   CHART SIZE
+========================================== */
+
+.chart-wrapper {
+
+    position: relative;
+
+    height: 360px;
+}
+
+
+.bar-chart {
+
+    height: 350px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .charts-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card.full-width {
+
+        grid-column: auto;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .analytics-container {
+
+        padding: 15px;
+    }
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-header {
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+}

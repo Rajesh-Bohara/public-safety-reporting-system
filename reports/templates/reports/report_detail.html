@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Report Details</title>
+
+</head>
+
+<body>
+
+<h1>
+
+    {{ report.incident_type }}
+
+</h1>
+
+
+<p>
+
+    Description :
+
+    {{ report.description }}
+
+</p>
+
+
+<p>
+
+    Location :
+
+    {{ report.location }}
+
+</p>
+
+
+<p>
+
+    Priority :
+
+    {{ report.priority }}
+
+</p>
+
+
+<p>
+
+    Status :
+
+    {% if report.status == "Pending" %}
+
+        <span class="pending">
+            {{ report.status }}
+        </span>
+
+    {% elif report.status == "Under Review" %}
+
+        <span class="review">
+            {{ report.status }}
+        </span>
+
+    {% elif report.status == "Resolved" %}
+
+        <span class="resolved">
+            {{ report.status }}
+        </span>
+
+    {% elif report.status == "Rejected" %}
+
+        <span class="rejected">
+            {{ report.status }}
+        </span>
+
+    {% endif %}
+
+</p>
+
+
+<hr>
+
+
+<h3>Admin Remarks</h3>
+
+
+{% if report.admin_remark %}
+
+    <p>
+
+        {{ report.admin_remark }}
+
+    </p>
+
+{% else %}
+
+    <p>
+
+        No remarks from the administrator yet.
+
+    </p>
+
+{% endif %}
+
+
+{% if report.photo %}
+
+    <img
+        src="{{ report.photo.url }}"
+        width="300">
+
+{% endif %}
+
+
+{% if report.video %}
+
+    <video controls width="400">
+
+        <source src="{{ report.video.url }}">
+
+    </video>
+
+{% endif %}
+
+
+{% if report.audio %}
+
+    <audio controls>
+
+        <source src="{{ report.audio.url }}">
+
+    </audio>
+
+{% endif %}
+
+
+<br><br>
+
+
+<a href="{% url 'history' %}">
+
+    Back
+
+</a>
+
+
+</body>
+
+</html>

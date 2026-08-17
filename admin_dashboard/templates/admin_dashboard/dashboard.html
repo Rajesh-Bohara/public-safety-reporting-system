@@ -1,0 +1,474 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Public Safety Admin Dashboard</title>
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/dashboard.css' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+          
+
+</head>
+
+<body>
+
+    <!-- ==================================================
+         SIDEBAR
+         ================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+
+        <div class="logo">
+
+            <h2>PSRS</h2>
+
+        </div>
+
+
+        <!-- Sidebar Menu -->
+
+        <ul>
+
+            <!-- Dashboard -->
+
+            <li>
+
+                <a href="{% url 'admin_dashboard' %}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- Incident Reports -->
+
+            <li>
+
+                <a href="{% url 'admin_reports' %}">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <span>Incident Reports</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- SOS Alerts -->
+
+            <li>
+
+                <a href="{% url 'admin_sos' %}">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <span>SOS Alerts</span>
+
+                </a>
+
+            </li>
+
+                  <!-- Manage Admins -->
+                 <!-- Only Super Admin can see this -->
+
+                {% if request.user.is_superuser %}
+
+            <li>
+
+                  <a href="{% url 'admin_list' %}">
+
+                         <i class="fa-solid fa-user-shield"></i>
+
+                             <span>Manage Admins</span>
+
+                    </a>
+
+             </li>
+
+                {% endif %}
+
+
+            <!-- Analytics -->
+                <li>
+                   <a href="{% url 'analytics' %}">
+                       <i class="fa-solid fa-chart-column"></i>
+                       <span>Analytics</span>
+                     </a>
+                </li>
+
+            <!-- Notifications -->
+
+            <li>
+
+                <a href="{% url 'notification_list' %}">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span>Notifications</span>
+
+                </a>
+
+            </li>
+
+
+            <!-- Settings -->
+
+        <li>
+            <a href="{% url 'admin_settings' %}">
+           <i class="fa-solid fa-gear"></i>
+           Settings
+             </a>
+        </li>
+
+
+            <!-- Logout -->
+
+            <li>
+
+                <a href="{% url 'logout' %}">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>Logout</span>
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- ==================================================
+         MAIN CONTENT
+         ================================================== -->
+
+    <main class="main">
+
+
+        <!-- ==================================================
+             TOP BAR
+             ================================================== -->
+
+        <div class="topbar">
+
+            <h1>
+
+                Public Safety Admin Dashboard
+
+            </h1>
+
+
+            <div class="top-right">
+
+
+                <!-- Notification -->
+
+                <a href="{% url 'notification_list' %}"
+                   class="notification">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    {% if unread_count > 0 %}
+
+                        <span class="badge">
+
+                            {{ unread_count }}
+
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+                <!-- Admin -->
+
+               <a href="{% url 'admin_profile' %}" class="admin-profile">
+
+    <i class="fa-solid fa-user-shield"></i>
+
+    <span>
+        {% if request.user.is_superuser %}
+            Super Admin
+        {% else %}
+            Admin
+        {% endif %}
+    </span>
+
+    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+</a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             DASHBOARD CARDS
+             ================================================== -->
+
+        <div class="cards">
+
+
+            <!-- Total Users -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h2>{{ total_users }}</h2>
+
+                <p>Total Users</p>
+
+            </div>
+
+
+            <!-- Total Reports -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <h2>{{ total_reports }}</h2>
+
+                <p>Total Reports</p>
+
+            </div>
+
+
+            <!-- Active SOS -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h2>{{ active_sos }}</h2>
+
+                <p>Active SOS</p>
+
+            </div>
+
+
+            <!-- Resolved -->
+
+            <div class="card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h2>{{ resolved_reports }}</h2>
+
+                <p>Resolved</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             CONTENT
+             ================================================== -->
+
+        <div class="content">
+
+
+            <!-- Recent Incident Reports -->
+
+            <div class="panel">
+
+    <h2>
+        Recent Incident Reports
+    </h2>
+
+    <table>
+
+        <tr>
+            <th>User</th>
+            <th>Incident</th>
+            <th>Status</th>
+        </tr>
+
+        {% for report in recent_reports %}
+
+            <tr>
+
+                <td>
+                    {{ report.user }}
+                </td>
+
+                <td>
+                    {{ report.incident_type }}
+                </td>
+
+                <td>
+                    {{ report.status }}
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="3">
+                    No incident reports available.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+            <!-- Recent SOS Alerts -->
+
+           <div class="panel">
+
+    <h2>
+        Recent SOS Alerts
+    </h2>
+
+    <table>
+
+        <tr>
+            <th>User</th>
+            <th>Emergency</th>
+            <th>Status</th>
+        </tr>
+
+        {% for sos in recent_sos_alerts %}
+
+            <tr>
+
+                <td>
+                    {{ sos.user }}
+                </td>
+
+                <td>
+                    {{ sos.emergency_type }}
+                </td>
+
+                <td>
+                    {{ sos.status }}
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td colspan="3">
+                    No SOS alerts available.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+            <!-- Recent Notifications -->
+
+            <div class="panel notification-panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+
+                        <i class="fa-solid fa-bell"></i>
+
+                        Recent Notifications
+
+                    </h2>
+
+
+                    <a href="{% url 'notification_list' %}"
+                       class="view-all">
+
+                        View All
+
+                    </a>
+
+                </div>
+
+
+                <ul>
+
+                    {% for notification in recent_notifications %}
+
+                        <li class="{% if not notification.is_read %}unread{% endif %}">
+
+                            <a href="{% url 'notification_detail' notification.pk %}">
+
+                                <strong>
+
+                                    {{ notification.title }}
+
+                                </strong>
+
+                                <br>
+
+                                <small>
+
+                                    {{ notification.message }}
+
+                                </small>
+
+                            </a>
+
+                        </li>
+
+
+                    {% empty %}
+
+                        <li>
+
+                            No notifications available.
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </main>
+
+ <script src="{% static 'admin_dashboard/js/theme.js' %}"></script>
+</body>
+
+</html>

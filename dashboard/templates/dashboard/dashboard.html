@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Public Safety Reporting System</title>
+
+    <link rel="stylesheet"
+          href="{% static 'dashboard/css/dashboard.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+<!-- Header -->
+
+<header>
+
+    <div class="user">
+
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <div>
+
+            {% if user.is_authenticated %}
+
+                <h3>Hi, {{ user.first_name }}</h3>
+
+                <p>Welcome back</p>
+
+            {% else %}
+
+                <h3>Welcome, Guest</h3>
+
+                <p>You are browsing anonymously</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Header right side -->
+
+    <div>
+
+        {% if user.is_authenticated %}
+
+            <a href="{% url 'logout' %}" class="logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        {% else %}
+
+            <a href="{% url 'login' %}" class="logout">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                Login
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</header>
+
+
+
+<!-- Emergency SOS -->
+
+<section class="sos">
+
+    <div>
+
+        <h2>Emergency SOS</h2>
+
+        <p>
+            Send your emergency alert instantly to the authorities.
+        </p>
+
+    </div>
+
+    <a href="{% url 'sos' %}" class="sos-btn">
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+    </a>
+
+</section>
+
+
+
+<!-- Dashboard Cards -->
+
+<section class="cards">
+
+
+    <!-- Report Incident -->
+
+    <a href="{% url 'report' %}" class="card">
+
+        <i class="fa-solid fa-file-circle-plus"></i>
+
+        <h3>Report Incident</h3>
+
+        <p>
+            File a new incident report.
+        </p>
+
+    </a>
+
+
+
+    {% if user.is_authenticated %}
+
+        <!-- Report History -->
+
+        <a href="{% url 'history' %}" class="card">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <h3>Report History</h3>
+
+            <p>
+                View your previous reports.
+            </p>
+
+        </a>
+
+
+        <!-- Profile -->
+
+        <a href="{% url 'profile' %}" class="card">
+
+            <i class="fa-solid fa-user"></i>
+
+            <h3>Profile</h3>
+
+            <p>
+                Manage your profile.
+            </p>
+
+        </a>
+
+
+        <!-- SOS History -->
+
+        <a href="{% url 'sos_history' %}" class="card">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            <h3>SOS History</h3>
+
+            <p>
+                View your emergency SOS requests.
+            </p>
+
+        </a>
+
+    {% endif %}
+
+
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,651 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency SOS | Public Safety Reporting System</title>
+
+    <link rel="stylesheet"
+          href="{% static 'sos/css/sos.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="sos-card">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="sos-header">
+
+            <div class="sos-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div>
+                <h1>Emergency SOS</h1>
+
+                <p>
+                    Press the SOS button if you are in immediate danger.
+                    Your location and date/time will be captured automatically.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- ================= FORM ================= -->
+
+        <form id="sosForm"
+              method="POST"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <!-- ================= BASIC INFORMATION ================= -->
+
+            <div class="form-grid">
+
+                <!-- INCIDENT TYPE -->
+
+                <div class="input-box">
+
+                    <label>
+                        <i class="fa-solid fa-list"></i>
+                        Incident Type
+                    </label>
+
+                    <select name="emergency_type" required>
+
+                        <option value="">
+                            Select Emergency
+                        </option>
+
+                        <option value="Medical Emergency">
+                            Medical Emergency
+                        </option>
+
+                        <option value="Crime">
+                            Crime
+                        </option>
+
+                        <option value="Fire">
+                            Fire
+                        </option>
+
+                        <option value="Road Accident">
+                            Road Accident
+                        </option>
+
+                        <option value="Violence">
+                            Violence
+                        </option>
+
+                        <option value="Natural Disaster">
+                            Natural Disaster
+                        </option>
+
+                        <option value="Suspicious Activity">
+                            Suspicious Activity
+                        </option>
+
+                        <option value="Others">
+                            Others
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="input-box">
+
+                    <label>
+                        <i class="fa-solid fa-comment"></i>
+                        Description
+                        <span>(Optional)</span>
+                    </label>
+
+                    <textarea
+                        name="message"
+                        rows="4"
+                        placeholder="Describe your emergency..."></textarea>
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="input-box">
+
+                    <label>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Current Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Detecting your location..."
+                        readonly>
+
+                    <div class="coordinates">
+
+                        <input
+                            type="text"
+                            id="latitudeDisplay"
+                            placeholder="Latitude"
+                            readonly>
+
+                        <input
+                            type="text"
+                            id="longitudeDisplay"
+                            placeholder="Longitude"
+                            readonly>
+
+                    </div>
+
+                </div>
+
+                <input
+                    type="hidden"
+                    id="latitude"
+                    name="latitude">
+
+                <input
+                    type="hidden"
+                    id="longitude"
+                    name="longitude">
+
+
+                <!-- DATE TIME -->
+
+                <div class="input-box">
+
+                    <label>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Current Date & Time
+                    </label>
+
+                    <input
+                        type="text"
+                        id="datetime"
+                        name="datetime"
+                        readonly>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MULTIMEDIA ================= -->
+
+            <div class="media-section">
+
+                <div class="media-title">
+
+                    <i class="fa-solid fa-photo-film"></i>
+
+                    Multimedia Evidence
+
+                    <span>(Optional)</span>
+
+                </div>
+
+                <p class="media-description">
+                    Add evidence only if it is safe to do so.
+                </p>
+
+
+                <!-- ================= PHOTO ================= -->
+
+                <div class="media-group">
+
+                    <label class="media-label">
+                        <i class="fa-solid fa-camera"></i>
+                        Photo
+                    </label>
+
+                    <div class="media-buttons">
+
+                        <!-- DEVICE -->
+
+                        <label class="media-btn">
+
+                            <i class="fa-solid fa-images"></i>
+
+                            <span>
+                                From Device
+                            </span>
+
+                            <input
+                                type="file"
+                                id="photoDevice"
+                                name="photo"
+                                accept="image/*"
+                                hidden>
+
+                        </label>
+
+
+                        <!-- CAMERA -->
+
+                        <button
+                            type="button"
+                            class="media-btn"
+                            id="takePhotoBtn">
+
+                            <i class="fa-solid fa-camera"></i>
+
+                            <span>
+                                Take Photo
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- PHOTO PREVIEW -->
+
+                    <div
+                        class="media-preview"
+                        id="photoPreviewContainer"
+                        hidden>
+
+                        <div class="preview-header">
+
+                            <span>
+                                Selected Photo
+                            </span>
+
+                            <button
+                                type="button"
+                                class="remove-media"
+                                id="removePhoto">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+                        <img
+                            id="photoPreview"
+                            alt="Photo preview">
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= VIDEO ================= -->
+
+                <div class="media-group">
+
+                    <label class="media-label">
+                        <i class="fa-solid fa-video"></i>
+                        Video
+                    </label>
+
+                    <div class="media-buttons">
+
+                        <!-- DEVICE -->
+
+                        <label class="media-btn">
+
+                            <i class="fa-solid fa-file-video"></i>
+
+                            <span>
+                                From Device
+                            </span>
+
+                            <input
+                                type="file"
+                                id="videoDevice"
+                                name="video"
+                                accept="video/*"
+                                hidden>
+
+                        </label>
+
+
+                        <!-- RECORD VIDEO -->
+
+                        <button
+                            type="button"
+                            class="media-btn"
+                            id="recordVideoBtn">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <span>
+                                Record Video
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- VIDEO PREVIEW -->
+
+                    <div
+                        class="media-preview"
+                        id="videoPreviewContainer"
+                        hidden>
+
+                        <div class="preview-header">
+
+                            <span>
+                                Selected Video
+                            </span>
+
+                            <button
+                                type="button"
+                                class="remove-media"
+                                id="removeVideo">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+                        <video
+                            id="videoPreview"
+                            controls
+                            playsinline>
+                        </video>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= AUDIO ================= -->
+
+                <div class="media-group">
+
+                    <label class="media-label">
+
+                        <i class="fa-solid fa-microphone"></i>
+
+                        Audio
+
+                    </label>
+
+                    <div class="media-buttons">
+
+                        <label class="media-btn">
+
+                            <i class="fa-solid fa-file-audio"></i>
+
+                            <span>
+                                From Device
+                            </span>
+
+                            <input
+                                type="file"
+                                id="audioDevice"
+                                name="audio"
+                                accept="audio/*"
+                                hidden>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- AUDIO PREVIEW -->
+
+                    <div
+                        class="media-preview"
+                        id="audioPreviewContainer"
+                        hidden>
+
+                        <div class="preview-header">
+
+                            <span>
+                                Selected Audio
+                            </span>
+
+                            <button
+                                type="button"
+                                class="remove-media"
+                                id="removeAudio">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+                        <audio
+                            id="audioPreview"
+                            controls>
+                        </audio>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SOS BUTTON ================= -->
+
+            <div class="sos-action">
+
+                <button
+                    type="submit"
+                    class="circular-sos"
+                    id="sosButton">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <span>SEND</span>
+                    <span>SOS</span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- ================= BACK ================= -->
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-link">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PHOTO CAMERA MODAL
+========================================================= -->
+
+<div
+    class="camera-modal"
+    id="cameraModal"
+    hidden>
+
+    <div class="camera-box">
+
+        <div class="camera-header">
+
+            <div>
+
+                <h2>
+                    <i class="fa-solid fa-camera"></i>
+                    Take Photo
+                </h2>
+
+                <p>
+                    Allow camera access to capture a photo.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="closeCamera"
+                class="close-camera">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="camera-view">
+
+            <video
+                id="cameraStream"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+        </div>
+
+
+        <div class="camera-controls">
+
+            <button
+                type="button"
+                class="camera-action"
+                id="cameraAction">
+
+                <i class="fa-solid fa-camera"></i>
+
+                Capture Photo
+
+            </button>
+
+        </div>
+
+
+        <p
+            class="camera-message"
+            id="cameraMessage">
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     VIDEO RECORDING MODAL
+========================================================= -->
+
+<div
+    class="camera-modal"
+    id="videoModal"
+    hidden>
+
+    <div class="camera-box">
+
+        <div class="camera-header">
+
+            <div>
+
+                <h2>
+                    <i class="fa-solid fa-video"></i>
+                    Record Video
+                </h2>
+
+                <p>
+                    Allow camera access to record video.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="closeVideo"
+                class="close-camera">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="camera-view">
+
+            <video
+                id="videoStream"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+            <div
+                class="recording-indicator"
+                id="videoRecordingIndicator"
+                hidden>
+
+                <span></span>
+
+                REC
+
+            </div>
+
+        </div>
+
+
+        <div class="camera-controls">
+
+            <button
+                type="button"
+                class="camera-action"
+                id="videoAction">
+
+                <i class="fa-solid fa-circle"></i>
+
+                Start Recording
+
+            </button>
+
+        </div>
+
+
+        <p
+            class="camera-message"
+            id="videoMessage">
+        </p>
+
+    </div>
+
+</div>
+
+
+<script src="{% static 'sos/js/sos.js' %}"></script>
+
+</body>
+</html>

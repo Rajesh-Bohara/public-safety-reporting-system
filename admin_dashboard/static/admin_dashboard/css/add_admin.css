@@ -1,0 +1,352 @@
+/* ==========================================================
+   ADD ADMIN PAGE
+   ========================================================== */
+
+.add-admin-container {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+}
+
+
+/* ==========================================================
+   ADD ADMIN CARD
+   ========================================================== */
+
+.add-admin-card {
+    width: 100%;
+
+    max-width: 700px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 30px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================================
+   FORM HEADER
+   ========================================================== */
+
+.form-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding-bottom: 25px;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.form-icon {
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f1f5f9;
+
+    color: #172033;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+
+.form-header h2 {
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 21px;
+}
+
+
+.form-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================================
+   ERROR MESSAGE
+   ========================================================== */
+
+.form-error {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 14px;
+
+    margin-bottom: 20px;
+
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 8px;
+
+    color: #b91c1c;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================================
+   FORM GROUP
+   ========================================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   INPUT WRAPPER
+   ========================================================== */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.input-wrapper i {
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+
+    font-size: 15px;
+}
+
+
+.input-wrapper input {
+    width: 100%;
+
+    height: 46px;
+
+    padding: 0 15px 0 43px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.input-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+
+.input-wrapper input:focus {
+    border-color: #64748b;
+
+    box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.12);
+}
+
+
+/* ==========================================================
+   FORM ACTIONS
+   ========================================================== */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+
+/* ==========================================================
+   CANCEL BUTTON
+   ========================================================== */
+
+.cancel-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 44px;
+
+    padding: 0 20px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #475569;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.cancel-btn:hover {
+    background: #f8fafc;
+
+    color: #172033;
+
+    text-decoration: none;
+}
+
+
+/* ==========================================================
+   CREATE BUTTON
+   ========================================================== */
+
+.create-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    height: 44px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #172033;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.create-btn:hover {
+    background: #253149;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .add-admin-card {
+        max-width: 100%;
+
+        padding: 25px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .add-admin-card {
+        padding: 20px;
+    }
+
+    .form-header {
+        align-items: flex-start;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+    .cancel-btn,
+    .create-btn {
+        width: 100%;
+    }
+}

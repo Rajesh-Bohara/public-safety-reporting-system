@@ -1,0 +1,259 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Public Safety Reporting System</title>
+
+    <link rel="stylesheet"
+          href="{% static 'users/css/profile.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- Profile Header -->
+
+<div class="profile-header">
+
+    {% if profile.profile_photo %}
+
+        <img src="{{ profile.profile_photo.url }}"
+             alt="Profile Photo"
+             class="profile-photo">
+
+    {% else %}
+
+        <div class="profile-placeholder">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+    {% endif %}
+
+
+    <h2>
+        {{ request.user.first_name }}
+        {{ request.user.last_name }}
+    </h2>
+
+    <p>
+        {{ request.user.email }}
+    </p>
+
+</div>
+
+
+<!-- Personal Information -->
+
+<div class="card">
+
+    <h3>
+
+        <i class="fa-solid fa-user"></i>
+
+        Personal Information
+
+    </h3>
+
+
+    <div class="info">
+
+        <!-- Username -->
+
+        <p>
+
+            <strong>
+
+                <i class="fa-solid fa-user"></i>
+
+                Username :
+
+            </strong>
+
+            <span>
+                {{ request.user.username }}
+            </span>
+
+        </p>
+
+
+        <!-- Mobile Number -->
+
+        <p>
+
+            <strong>
+
+                <i class="fa-solid fa-phone"></i>
+
+                Mobile Number :
+
+            </strong>
+
+            <span>
+
+                {% if profile.mobile_number %}
+
+                    {{ profile.mobile_number }}
+
+                {% else %}
+
+                    Not added
+
+                {% endif %}
+
+            </span>
+
+        </p>
+
+
+        <!-- Member Since -->
+
+        <p>
+
+            <strong>
+
+                <i class="fa-solid fa-calendar"></i>
+
+                Member Since :
+
+            </strong>
+
+            <span>
+                {{ request.user.date_joined|date:"d M Y" }}
+            </span>
+
+        </p>
+
+
+        <!-- Last Login -->
+
+        <p>
+
+            <strong>
+
+                <i class="fa-solid fa-clock"></i>
+
+                Last Login :
+
+            </strong>
+
+            <span>
+
+                {% if request.user.last_login %}
+
+                    {{ request.user.last_login|date:"d M Y H:i" }}
+
+                {% else %}
+
+                    First Login
+
+                {% endif %}
+
+            </span>
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- Statistics -->
+
+<div class="card">
+
+    <h3>
+
+        <i class="fa-solid fa-chart-column"></i>
+
+        My Statistics
+
+    </h3>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <i class="fa-solid fa-file-circle-plus"></i>
+
+            <h4>{{ report_count }}</h4>
+
+            <p>Reports</p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+            <h4>{{ sos_count }}</h4>
+
+            <p>SOS Used</p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <h4>{{ resolved_count }}</h4>
+
+            <p>Resolved</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Buttons -->
+
+<div class="buttons">
+
+    <a href="{% url 'edit_profile' %}"
+       class="btn edit">
+
+        <i class="fa-solid fa-pen"></i>
+
+        Edit Profile
+
+    </a>
+
+
+    <a href="{% url 'change_password' %}"
+       class="btn password">
+
+        <i class="fa-solid fa-key"></i>
+
+        Change Password
+
+    </a>
+
+
+    <a href="{% url 'dashboard' %}"
+       class="btn dashboard">
+
+        <i class="fa-solid fa-house"></i>
+
+        Dashboard
+
+    </a>
+
+</div>
+
+
+</body>
+</html>

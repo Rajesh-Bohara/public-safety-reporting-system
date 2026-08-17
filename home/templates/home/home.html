@@ -1,0 +1,1025 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SafeSpace | Public Safety Reporting</title>
+
+    <meta name="description"
+          content="SafeSpace is a public safety reporting and emergency assistance platform.">
+
+    <!-- Home CSS -->
+    <link rel="stylesheet"
+          href="{% static 'home/css/home.css' %}">
+
+</head>
+
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav>
+
+    <div class="container nav-inner">
+
+        <!-- BRAND -->
+
+        <a href="{% url 'home' %}"
+           class="brand">
+
+            <span class="brand-icon">
+                🛡
+            </span>
+
+            SafeSpace
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how">
+                How It Works
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </div>
+
+
+        <!-- AUTH BUTTONS -->
+
+        <div class="nav-actions">
+
+            <a href="{% url 'login' %}"
+               class="btn btn-outline">
+
+                Login
+
+            </a>
+
+
+            <a href="{% url 'register' %}"
+               class="btn btn-primary">
+
+                Get Started
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<section class="hero"
+         id="home">
+
+    <div class="container hero-grid">
+
+
+        <!-- HERO LEFT -->
+
+        <div>
+
+            <div class="eyebrow">
+
+                <span class="status-dot"></span>
+
+                Building safer communities
+
+            </div>
+
+
+            <h1>
+
+                Your Safety.
+                <br>
+
+                <span>Your Voice.</span>
+                <br>
+
+                Our Responsibility.
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                A digital public safety platform designed
+                to make incident reporting, emergency
+                assistance and report tracking simple,
+                organized and accessible.
+
+            </p>
+
+
+            <!-- HERO BUTTONS -->
+
+            <div class="hero-buttons">
+
+                <a href="{% url 'login' %}"
+                   class="btn btn-primary">
+
+                    🚨 Report an Incident
+
+                </a>
+
+
+                <a href="#how"
+                   class="btn btn-outline">
+
+                    Learn How It Works →
+
+                </a>
+
+            </div>
+
+
+            <!-- TRUST ITEMS -->
+
+            <div class="trust">
+
+                <span>
+                    ✓
+                    <strong>
+                        Simple reporting
+                    </strong>
+                </span>
+
+
+                <span>
+                    ✓
+                    <strong>
+                        Secure accounts
+                    </strong>
+                </span>
+
+
+                <span>
+                    ✓
+                    <strong>
+                        Report tracking
+                    </strong>
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO SAFETY CARD -->
+
+        <div class="hero-card">
+
+            <div class="card-top">
+
+                <div class="mini-title">
+                    Safety Center
+                </div>
+
+
+                <div class="status">
+
+                    ● Platform Active
+
+                </div>
+
+            </div>
+
+
+            <!-- EMERGENCY -->
+
+            <div class="alert-box">
+
+                <div class="alert-row">
+
+                    <div class="alert-icon">
+                        🚨
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Emergency Assistance
+                        </h3>
+
+                        <p>
+                            Quick access to the SOS feature
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INCIDENT REPORT -->
+
+            <div class="alert-box">
+
+                <div class="alert-row">
+
+                    <div class="alert-icon report-icon">
+                        📝
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Report an Incident
+                        </h3>
+
+                        <p>
+                            Submit information and
+                            supporting media
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK INFORMATION -->
+
+            <div class="quick">
+
+                <div>
+
+                    <b>
+                        24/7
+                    </b>
+
+                    <span>
+                        Digital access
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <b>
+                        6+
+                    </b>
+
+                    <span>
+                        Safety features
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURES SECTION
+========================================================= -->
+
+<section class="features"
+         id="features">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="section-label">
+                Platform Features
+            </div>
+
+
+            <h2>
+                Safety tools in one place
+            </h2>
+
+
+            <p>
+
+                Everything is organized around making
+                public safety reporting easier and
+                more manageable.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-grid">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Incident Reporting
+                </h3>
+
+                <p>
+
+                    Submit safety incidents with
+                    important details through a
+                    structured reporting system.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🚨
+                </div>
+
+                <h3>
+                    SOS Assistance
+                </h3>
+
+                <p>
+
+                    Access the platform's emergency
+                    assistance feature when you need
+                    help quickly.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📎
+                </div>
+
+                <h3>
+                    Multimedia Reports
+                </h3>
+
+                <p>
+
+                    Attach relevant photos, videos
+                    or audio to provide additional
+                    context to a report.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔔
+                </div>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <p>
+
+                    Stay informed about updates
+                    related to your submitted
+                    reports and alerts.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FEATURE 5 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Report History
+                </h3>
+
+                <p>
+
+                    Review your previously submitted
+                    incidents from your personal
+                    dashboard.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FEATURE 6 -->
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Account & Privacy
+                </h3>
+
+                <p>
+
+                    Use authenticated accounts to
+                    access your reports and personal
+                    platform features.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EMERGENCY CONTACTS
+========================================================= -->
+
+<section class="emergency-contacts"
+         id="emergency">
+
+    <div class="container">
+
+        <div class="emergency-header">
+
+            <span class="emergency-label">
+                🚨 EMERGENCY CONTACTS
+            </span>
+
+            <h2>
+                Need Immediate Help?
+            </h2>
+
+            <p>
+                In an emergency, contact the appropriate
+                emergency service immediately using the
+                numbers below.
+            </p>
+
+        </div>
+
+
+        <div class="emergency-grid">
+
+
+            <!-- POLICE -->
+
+            <a href="tel:100"
+               class="emergency-card police">
+
+                <div class="emergency-icon">
+                    👮
+                </div>
+
+                <div class="emergency-info">
+
+                    <span>
+                        Police
+                    </span>
+
+                    <strong>
+                        100
+                    </strong>
+
+                    <p>
+                        For crimes, threats, violence
+                        and immediate security assistance.
+                    </p>
+
+                </div>
+
+                <div class="call-button">
+                    Call 100 →
+                </div>
+
+            </a>
+
+
+
+            <!-- FIRE DEPARTMENT -->
+
+            <a href="tel:101"
+               class="emergency-card fire">
+
+                <div class="emergency-icon">
+                    🚒
+                </div>
+
+                <div class="emergency-info">
+
+                    <span>
+                        Fire Department
+                    </span>
+
+                    <strong>
+                        101
+                    </strong>
+
+                    <p>
+                        For fires, rescue situations
+                        and fire-related emergencies.
+                    </p>
+
+                </div>
+
+                <div class="call-button">
+                    Call 101 →
+                </div>
+
+            </a>
+
+
+
+            <!-- AMBULANCE -->
+
+            <a href="tel:102"
+               class="emergency-card ambulance">
+
+                <div class="emergency-icon">
+                    🚑
+                </div>
+
+                <div class="emergency-info">
+
+                    <span>
+                        Ambulance
+                    </span>
+
+                    <strong>
+                        102
+                    </strong>
+
+                    <p>
+                        For urgent medical emergencies
+                        and immediate medical assistance.
+                    </p>
+
+                </div>
+
+                <div class="call-button">
+                    Call 102 →
+                </div>
+
+            </a>
+
+
+
+            <!-- TRAFFIC POLICE -->
+
+            <a href="tel:103"
+               class="emergency-card traffic">
+
+                <div class="emergency-icon">
+                    🚦
+                </div>
+
+                <div class="emergency-info">
+
+                    <span>
+                        Traffic Police
+                    </span>
+
+                    <strong>
+                        103
+                    </strong>
+
+                    <p>
+                        For traffic emergencies, road
+                        incidents and traffic assistance.
+                    </p>
+
+                </div>
+
+                <div class="call-button">
+                    Call 103 →
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <div class="emergency-note">
+
+            <span>
+                ⚠️
+            </span>
+
+            <p>
+                <strong>Important:</strong>
+                These contacts are intended for emergency
+                situations. For immediate danger, contact
+                the appropriate emergency service directly.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HOW IT WORKS
+========================================================= -->
+
+<section id="how">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="section-label">
+                How It Works
+            </div>
+
+
+            <h2>
+                Simple from start to finish
+            </h2>
+
+
+            <p>
+
+                The platform keeps the reporting journey
+                straightforward for users.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="steps">
+
+
+            <!-- STEP 1 -->
+
+            <div class="step">
+
+                <div class="number">
+                    01
+                </div>
+
+                <h3>
+                    Create an Account
+                </h3>
+
+                <p>
+
+                    Register and securely log in
+                    to access the reporting dashboard.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- STEP 2 -->
+
+            <div class="step">
+
+                <div class="number">
+                    02
+                </div>
+
+                <h3>
+                    Report or Request Help
+                </h3>
+
+                <p>
+
+                    Submit an incident report or
+                    use the available emergency
+                    assistance feature.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- STEP 3 -->
+
+            <div class="step">
+
+                <div class="number">
+                    03
+                </div>
+
+                <h3>
+                    Track Your Report
+                </h3>
+
+                <p>
+
+                    View your report history and
+                    receive relevant notifications
+                    through your account.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section class="about"
+         id="about">
+
+    <div class="container">
+
+
+        <div class="section-head">
+
+            <div class="section-label">
+                About SafeSpace
+            </div>
+
+
+            <h2>
+                Technology for better safety reporting
+            </h2>
+
+
+            <p>
+
+                SafeSpace is a public safety reporting
+                and emergency assistance platform that
+                provides a centralized digital channel
+                for communicating safety concerns.
+
+                Its goal is to make reporting more
+                accessible, organized and user-friendly.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CALL TO ACTION
+========================================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+
+            <div>
+
+                <h2>
+                    Ready to get started?
+                </h2>
+
+
+                <p>
+
+                    Create an account to access
+                    incident reporting, SOS assistance,
+                    notifications and your personal
+                    safety dashboard.
+
+                </p>
+
+            </div>
+
+
+            <a href="{% url 'register' %}"
+               class="btn">
+
+                Create Your Account →
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+
+        <div class="footer-grid">
+
+
+            <!-- FOOTER BRAND -->
+
+            <div>
+
+                <div class="brand">
+
+                    <span class="brand-icon">
+                        🛡
+                    </span>
+
+                    SafeSpace
+
+                </div>
+
+
+                <p>
+
+                    Public Safety Reporting &
+                    Emergency Assistance Platform.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- QUICK LINKS -->
+
+            <div>
+
+                <h4>
+                    Quick Links
+                </h4>
+
+
+                <a href="{% url 'home' %}">
+                    Home
+                </a>
+
+
+                <a href="#features">
+                    Features
+                </a>
+
+
+                <a href="#emergency">
+                    Emergency Contacts
+                </a>
+
+
+                <a href="#how">
+                    How It Works
+                </a>
+
+
+                <a href="#about">
+                    About
+                </a>
+
+            </div>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div>
+
+                <h4>
+                    Account
+                </h4>
+
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+
+                <a href="{% url 'register' %}">
+                    Register
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- COPYRIGHT -->
+
+        <div class="copyright">
+
+            © 2026 SafeSpace.
+            Public Safety Reporting Platform.
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="{% static 'home/js/home.js' %}"></script>
+
+
+</body>
+
+</html>

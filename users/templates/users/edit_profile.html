@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | Public Safety Reporting System</title>
+
+    <link rel="stylesheet"
+          href="{% static 'users/css/edit_profile.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-user-pen"></i>
+            Edit Profile
+        </h2>
+
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <!-- Username -->
+
+            <div class="form-group">
+
+                <label for="{{ form.username.id_for_label }}">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    Username
+
+                </label>
+
+                {{ form.username }}
+
+                {% if form.username.errors %}
+
+                    <div class="error">
+
+                        {{ form.username.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Mobile Number -->
+
+            <div class="form-group">
+
+                <label for="{{ form.mobile_number.id_for_label }}">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    Mobile Number
+
+                </label>
+
+                {{ form.mobile_number }}
+
+                {% if form.mobile_number.errors %}
+
+                    <div class="error">
+
+                        {{ form.mobile_number.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Profile Photo -->
+
+            <div class="form-group">
+
+                <label for="{{ form.profile_photo.id_for_label }}">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Profile Photo
+
+                </label>
+
+                {{ form.profile_photo }}
+
+                {% if form.profile_photo.errors %}
+
+                    <div class="error">
+
+                        {{ form.profile_photo.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Non-field Errors -->
+
+            {% if form.non_field_errors %}
+
+                <div class="error">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Save Button -->
+
+            <button type="submit">
+
+                <i class="fa-solid fa-check"></i>
+
+                Save Changes
+
+            </button>
+
+        </form>
+
+
+        <!-- Back -->
+
+        <a href="{% url 'profile' %}">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Profile
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

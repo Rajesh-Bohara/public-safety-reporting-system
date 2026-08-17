@@ -1,0 +1,24 @@
+body{
+
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#f5f7fa;
+    font-family:Arial;
+
+}
+
+.dashboard{
+
+    text-align:center;
+
+}
+
+.dashboard h1{
+
+    color:#2563eb;
+    font-size:45px;
+
+}

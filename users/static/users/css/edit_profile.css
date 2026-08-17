@@ -1,0 +1,208 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef2f5, #dfe5ea);
+    padding: 50px 20px;
+    color: #222;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 20px;
+    padding: 40px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.10);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.card h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 27px;
+    margin-bottom: 8px;
+
+    color: #1f2933;
+}
+
+.card h2 i {
+    font-size: 23px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group label i {
+    margin-right: 7px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="file"] {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d5dbe1;
+    border-radius: 10px;
+
+    background: #fafbfc;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all 0.25s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+    background: #fff;
+
+    border-color: #59636e;
+
+    box-shadow: 0 0 0 4px rgba(89, 99, 110, 0.10);
+}
+
+.form-group input[type="file"] {
+    cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+    background: #f2f4f6;
+}
+
+.error {
+    margin-top: 7px;
+
+    color: #c62828;
+
+    font-size: 13px;
+}
+
+.error ul {
+    margin-left: 18px;
+}
+
+/* Django current photo */
+
+.form-group a {
+    color: #555;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.form-group a:hover {
+    text-decoration: underline;
+}
+
+/* Save button */
+
+button {
+    width: 100%;
+
+    border: none;
+    border-radius: 11px;
+
+    padding: 14px 18px;
+
+    background: #252a2f;
+    color: #fff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+button:hover {
+    background: #111518;
+
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.15);
+
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button i {
+    margin-right: 7px;
+}
+
+/* Back link */
+
+.card > a {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 22px;
+
+    color: #59636e;
+
+    font-size: 14px;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.card > a:hover {
+    color: #111;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+    .card {
+        padding: 28px 22px;
+        border-radius: 16px;
+    }
+
+    .card h2 {
+        font-size: 23px;
+    }
+
+}

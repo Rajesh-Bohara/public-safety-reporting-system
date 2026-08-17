@@ -1,0 +1,489 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SOS Details</title>
+
+    <link rel="stylesheet"
+          href="{% static 'sos/css/sos_detail.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<div class="page-container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="detail-header">
+
+        <div class="header-left">
+
+            <div class="header-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div>
+
+                <h1>SOS Emergency Details</h1>
+
+                <p>
+                    Details of your submitted emergency alert
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a href="{% url 'sos_history' %}"
+           class="back-button">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to History
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN CARD
+         ===================================================== -->
+
+    <div class="detail-card">
+
+
+        <!-- =================================================
+             EMERGENCY TYPE
+             ================================================= -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                Emergency Information
+
+            </div>
+
+
+            <div class="info-grid">
+
+
+                <div class="info-box">
+
+                    <span class="label">
+                        Emergency Type
+                    </span>
+
+                    <strong class="emergency-type">
+
+                        {{ alert.emergency_type }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="label">
+                        Submitted On
+                    </span>
+
+                    <strong>
+
+                        {{ alert.created_at|date:"M d, Y - h:i A" }}
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DESCRIPTION
+             ================================================= -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-align-left"></i>
+
+                Description
+
+            </div>
+
+
+            <div class="description-box">
+
+                {% if alert.message %}
+
+                    {{ alert.message }}
+
+                {% else %}
+
+                    <span class="not-available">
+                        No description was provided.
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOCATION
+             ================================================= -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Location
+
+            </div>
+
+
+            <div class="location-box">
+
+
+                {% if alert.location %}
+
+                    <div class="location-row">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <div>
+
+                            <span class="location-label">
+                                Location
+                            </span>
+
+                            <strong>
+                                {{ alert.location }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+
+                {% if alert.latitude and alert.longitude %}
+
+                    <div class="coordinates">
+
+                        <div>
+
+                            <span>
+                                Latitude
+                            </span>
+
+                            <strong>
+                                {{ alert.latitude }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Longitude
+                            </span>
+
+                            <strong>
+                                {{ alert.longitude }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                {% elif not alert.location %}
+
+                    <span class="not-available">
+                        Location information is unavailable.
+                    </span>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADMIN RESPONSE
+             ================================================= -->
+
+        <div class="admin-section">
+
+
+            <div class="section-title admin-title">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Admin Response
+
+            </div>
+
+
+
+            <div class="admin-grid">
+
+
+                <!-- STATUS -->
+
+                <div class="admin-box">
+
+                    <span class="label">
+                        Status
+                    </span>
+
+
+                    {% if alert.status == "Pending" %}
+
+                        <span class="status status-pending">
+
+                            <span class="status-dot"></span>
+
+                            Pending
+
+                        </span>
+
+
+                    {% elif alert.status == "Responding" %}
+
+                        <span class="status status-responding">
+
+                            <span class="status-dot"></span>
+
+                            Responding
+
+                        </span>
+
+
+                    {% elif alert.status == "Resolved" %}
+
+                        <span class="status status-resolved">
+
+                            <span class="status-dot"></span>
+
+                            Resolved
+
+                        </span>
+
+
+                    {% else %}
+
+                        <span class="status">
+
+                            {{ alert.status }}
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- ADMIN REMARK -->
+
+                <div class="admin-box remark-box">
+
+                    <span class="label">
+                        Admin Remarks
+                    </span>
+
+
+                    {% if alert.admin_remark %}
+
+                        <div class="remark">
+
+                            <i class="fa-solid fa-comment-dots"></i>
+
+                            <span>
+                                {{ alert.admin_remark }}
+                            </span>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="no-remark">
+
+                            <i class="fa-regular fa-clock"></i>
+
+                            No remarks have been provided by the admin yet.
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MULTIMEDIA
+             ================================================= -->
+
+        {% if alert.photo or alert.video or alert.audio %}
+
+        <div class="section">
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-paperclip"></i>
+
+                Attached Evidence
+
+            </div>
+
+
+            <div class="media-grid">
+
+
+                {% if alert.photo %}
+
+                <div class="media-item">
+
+                    <span class="media-label">
+                        <i class="fa-solid fa-image"></i>
+                        Photo
+                    </span>
+
+                    <img src="{{ alert.photo.url }}"
+                         alt="SOS Photo">
+
+                </div>
+
+                {% endif %}
+
+
+
+                {% if alert.video %}
+
+                <div class="media-item">
+
+                    <span class="media-label">
+                        <i class="fa-solid fa-video"></i>
+                        Video
+                    </span>
+
+                    <video controls>
+
+                        <source src="{{ alert.video.url }}">
+
+                        Your browser does not support video playback.
+
+                    </video>
+
+                </div>
+
+                {% endif %}
+
+
+
+                {% if alert.audio %}
+
+                <div class="media-item">
+
+                    <span class="media-label">
+                        <i class="fa-solid fa-volume-high"></i>
+                        Audio
+                    </span>
+
+                    <audio controls>
+
+                        <source src="{{ alert.audio.url }}">
+
+                        Your browser does not support audio playback.
+
+                    </audio>
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="bottom-actions">
+
+        <a href="{% url 'sos_history' %}"
+           class="history-button">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            Back to SOS History
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

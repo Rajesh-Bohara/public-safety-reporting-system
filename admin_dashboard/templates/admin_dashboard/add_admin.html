@@ -1,0 +1,437 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Admin | PSRS</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/dashboard.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/add_admin.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     SIDEBAR
+     ====================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>PSRS</h2>
+
+    </div>
+
+
+    <ul>
+
+        <!-- Dashboard -->
+
+        <li>
+
+            <a href="{% url 'admin_dashboard' %}">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Incident Reports -->
+
+        <li>
+
+            <a href="{% url 'admin_reports' %}">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>Incident Reports</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- SOS Alerts -->
+
+        <li>
+
+            <a href="{% url 'admin_sos' %}">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <span>SOS Alerts</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Live Locations -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>Live Locations</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Manage Admins -->
+
+        <li class="active">
+
+            <a href="{% url 'admin_list' %}">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <span>Manage Admins</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Analytics -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>Analytics</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Notifications -->
+
+        <li>
+
+            <a href="{% url 'notification_list' %}">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span>Notifications</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Settings -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </li>
+
+
+        <!-- Logout -->
+
+        <li>
+
+            <a href="{% url 'logout' %}">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ======================================================
+     MAIN CONTENT
+     ====================================================== -->
+
+<div class="main">
+
+
+    <!-- ==================================================
+         TOP BAR
+         ================================================== -->
+
+    <div class="topbar">
+
+        <h1>
+            Add New Admin
+        </h1>
+
+
+        <div class="top-right">
+
+            <a href="{% url 'notification_list' %}"
+               class="notification">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </a>
+
+
+            <div class="admin">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                {% if request.user.is_superuser %}
+
+                    Super Admin
+
+                {% else %}
+
+                    Admin
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         ADD ADMIN SECTION
+         ================================================== -->
+
+    <div class="add-admin-container">
+
+
+        <div class="add-admin-card">
+
+
+            <!-- Header -->
+
+            <div class="form-header">
+
+                <div class="form-icon">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>Create New Admin</h2>
+
+                    <p>
+                        Add a new administrator to the PSRS system.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Error -->
+
+            {% if error %}
+
+                <div class="form-error">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span>{{ error }}</span>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- Form -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="username">
+
+                        Username
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter admin username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+
+                        Email Address
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter admin email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+
+                        Confirm Password
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Confirm password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <a href="{% url 'admin_list' %}"
+                       class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="create-btn">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Create Admin
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,777 @@
+/* ============================================================
+   SOS HISTORY
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f6f8;
+
+    color: #222;
+
+    min-height: 100vh;
+}
+
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+
+.container {
+
+    width: 95%;
+
+    max-width: 1250px;
+
+    margin: 35px auto;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #b40000,
+            #dc2626
+        );
+
+    color: white;
+
+    padding: 20px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* ============================================================
+   HEADER TITLE
+   ============================================================ */
+
+.header-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.header-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.15);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+
+.header h1 {
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    margin-bottom: 3px;
+}
+
+
+.header p {
+
+    font-size: 13px;
+
+    opacity: 0.9;
+}
+
+
+/* ============================================================
+   BACK BUTTON
+   ============================================================ */
+
+.back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    color: #a90000;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+
+.back-btn:hover {
+
+    background: #f8f8f8;
+
+    transform: translateY(-1px);
+
+    color: #8b0000;
+}
+
+
+/* ============================================================
+   HISTORY CONTENT
+   ============================================================ */
+
+.history-content {
+
+    padding: 18px;
+}
+
+
+/* ============================================================
+   TABLE WRAPPER
+   ============================================================ */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+/* ============================================================
+   TABLE HEADER
+   ============================================================ */
+
+thead {
+
+    background: #fafafa;
+}
+
+
+thead th {
+
+    padding: 12px 14px;
+
+    text-align: left;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #555;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+/* Column sizes */
+
+.number-column {
+
+    width: 5%;
+}
+
+
+thead th:nth-child(2) {
+
+    width: 19%;
+}
+
+
+thead th:nth-child(3) {
+
+    width: 17%;
+}
+
+
+thead th:nth-child(4) {
+
+    width: 25%;
+}
+
+
+thead th:nth-child(5) {
+
+    width: 15%;
+}
+
+
+.action-column {
+
+    width: 19%;
+}
+
+
+/* ============================================================
+   TABLE ROW
+   ============================================================ */
+
+tbody tr {
+
+    height: 70px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    transition:
+        background 0.2s ease;
+}
+
+
+tbody tr:hover {
+
+    background: #fff8f8;
+}
+
+
+tbody td {
+
+    padding: 10px 14px;
+
+    vertical-align: middle;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   NUMBER
+   ============================================================ */
+
+.number-cell {
+
+    color: #777;
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   EMERGENCY
+   ============================================================ */
+
+.emergency-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.emergency-icon {
+
+    width: 30px;
+
+    height: 30px;
+
+    border-radius: 7px;
+
+    background: #fee2e2;
+
+    color: #b40000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 12px;
+
+    flex-shrink: 0;
+}
+
+
+.emergency-cell span {
+
+    font-weight: 700;
+
+    color: #222;
+}
+
+
+/* ============================================================
+   DATE
+   ============================================================ */
+
+.date-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.date-info strong {
+
+    font-size: 13px;
+
+    color: #333;
+}
+
+
+.date-info span {
+
+    font-size: 12px;
+
+    color: #777;
+}
+
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+
+.location-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #555;
+}
+
+
+.location-info i {
+
+    color: #c40000;
+
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+.location-info span {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.no-location {
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    min-width: 82px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.status-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+}
+
+
+/* Pending */
+
+.status-pending {
+
+    background: #fff3cd;
+
+    color: #856404;
+}
+
+
+.status-pending .status-dot {
+
+    background: #d39e00;
+}
+
+
+/* Responding */
+
+.status-responding {
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+}
+
+
+.status-responding .status-dot {
+
+    background: #2563eb;
+}
+
+
+/* Resolved */
+
+.status-resolved {
+
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+.status-resolved .status-dot {
+
+    background: #16a34a;
+}
+
+
+/* ============================================================
+   ACTION CELL
+   ============================================================ */
+
+.action-cell {
+
+    text-align: left;
+}
+
+
+/* ============================================================
+   VIEW BUTTON
+   ============================================================ */
+
+.view-btn {
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 7px !important;
+
+    width: 88px !important;
+
+    height: 38px !important;
+
+    padding: 0 !important;
+
+    background: #b40000 !important;
+
+    color: #ffffff !important;
+
+    border: none !important;
+
+    border-radius: 8px !important;
+
+    text-decoration: none !important;
+
+    font-size: 13px !important;
+
+    font-weight: 700 !important;
+
+    cursor: pointer !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.view-btn:hover {
+
+    background: #8f0000 !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(180, 0, 0, 0.25);
+}
+
+
+.view-btn:active {
+
+    transform: translateY(0);
+
+    box-shadow: none;
+}
+
+
+.view-btn i {
+
+    display: inline-block !important;
+
+    color: #ffffff !important;
+
+    font-size: 13px;
+
+    line-height: 1;
+}
+
+
+/* ============================================================
+   EMPTY HISTORY
+   ============================================================ */
+
+.empty-history {
+
+    text-align: center;
+
+    padding: 70px 20px;
+}
+
+
+.empty-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+
+    color: #b40000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+
+.empty-history h2 {
+
+    font-size: 20px;
+
+    margin-bottom: 8px;
+
+    color: #333;
+}
+
+
+.empty-history p {
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 22px;
+}
+
+
+/* ============================================================
+   SEND SOS BUTTON
+   ============================================================ */
+
+.send-sos-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 20px;
+
+    background: #b40000;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: all 0.2s ease;
+}
+
+
+.send-sos-btn:hover {
+
+    background: #8f0000;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .container {
+
+        width: 97%;
+
+        margin: 20px auto;
+    }
+
+
+    .header {
+
+        padding: 18px;
+    }
+
+
+    .history-content {
+
+        padding: 12px;
+    }
+
+
+    table {
+
+        min-width: 900px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+
+        width: 100%;
+
+        margin: 0;
+
+        border-radius: 0;
+    }
+
+
+    .header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .back-btn {
+
+        width: 100%;
+    }
+
+
+    .history-content {
+
+        padding: 8px;
+    }
+
+}

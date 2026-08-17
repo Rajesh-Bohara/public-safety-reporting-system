@@ -1,0 +1,513 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Administrators</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/admin_list.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+<!-- ==========================================================
+     SIDEBAR
+     ========================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>PSRS</h2>
+
+    </div>
+
+
+    <ul>
+
+        <!-- Dashboard -->
+
+        <li>
+
+            <a href="{% url 'admin_dashboard' %}">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+
+        <!-- Incident Reports -->
+
+        <li>
+
+            <a href="{% url 'admin_reports' %}">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                Incident Reports
+
+            </a>
+
+        </li>
+
+
+        <!-- SOS Alerts -->
+
+        <li>
+
+            <a href="{% url 'admin_sos' %}">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                SOS Alerts
+
+            </a>
+
+        </li>
+
+
+        <!-- Live Locations -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Live Locations
+
+            </a>
+
+        </li>
+
+
+        <!-- Manage Admins -->
+
+        <li class="active">
+
+            <a href="{% url 'admin_list' %}">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Manage Admins
+
+            </a>
+
+        </li>
+
+
+        <!-- Analytics -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                Analytics
+
+            </a>
+
+        </li>
+
+
+        <!-- Notifications -->
+
+        <li>
+
+            <a href="{% url 'notification_list' %}">
+
+                <i class="fa-solid fa-bell"></i>
+
+                Notifications
+
+            </a>
+
+        </li>
+
+
+        <!-- Settings -->
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </a>
+
+        </li>
+
+
+        <!-- Logout -->
+
+        <li>
+
+            <a href="{% url 'logout' %}">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- ==========================================================
+     MAIN CONTENT
+     ========================================================== -->
+
+<div class="main">
+
+
+    <!-- ======================================================
+         TOP BAR
+         ====================================================== -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>Manage Administrators</h1>
+
+            <p>Manage administrator accounts and access.</p>
+
+        </div>
+
+
+        <div class="admin-info">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+            <span>Super Admin</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         PAGE HEADER
+         ====================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Administrator Accounts</h2>
+
+            <p>
+                View and manage staff administrator accounts.
+            </p>
+
+        </div>
+
+
+        <a href="{% url 'add_admin' %}"
+           class="add-admin-btn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add New Admin
+
+        </a>
+
+    </div>
+
+
+    <!-- ======================================================
+         ADMIN TABLE
+         ====================================================== -->
+
+    <div class="admin-panel">
+
+
+        <div class="panel-top">
+
+            <div class="admin-count">
+
+                <i class="fa-solid fa-users-gear"></i>
+
+                <span>
+
+                    {{ admins|length }} Administrator{{ admins|length|pluralize }}
+
+                </span>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="adminSearch"
+                    placeholder="Search administrators..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table id="adminTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Administrator</th>
+
+                        <th>Email</th>
+
+                        <th>Role</th>
+
+                        <th>Status</th>
+
+                        <th>Date Joined</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for admin in admins %}
+
+                    <tr>
+
+                        <!-- Administrator -->
+
+                        <td>
+
+                            <div class="admin-user">
+
+                                <div class="avatar">
+
+                                    {{ admin.username|first|upper }}
+
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ admin.username }}
+                                    </strong>
+
+                                    <small>
+                                        @{{ admin.username }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Email -->
+
+                        <td>
+
+                            {% if admin.email %}
+
+                                {{ admin.email }}
+
+                            {% else %}
+
+                                <span class="not-available">
+                                    No email
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Role -->
+
+                        <td>
+
+                            <span class="role-badge">
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                                Administrator
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Status -->
+
+                        <td>
+
+                            {% if admin.is_active %}
+
+                                <span class="status active">
+
+                                    <span class="status-dot"></span>
+
+                                    Active
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="status inactive">
+
+                                    <span class="status-dot"></span>
+
+                                    Inactive
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Date Joined -->
+
+                        <td>
+
+                            {{ admin.date_joined|date:"M d, Y" }}
+
+                        </td>
+
+
+                        <!-- Action -->
+
+                        <td>
+
+                           <a href="{% url 'edit_admin' admin.id %}"
+                              class="action-btn"
+                                title="Edit administrator">
+
+                              <i class="fa-solid fa-pen"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="empty-state">
+
+                            <div>
+
+                                <i class="fa-solid fa-user-shield"></i>
+
+                                <h3>No Administrators Found</h3>
+
+                                <p>
+                                    There are currently no administrator
+                                    accounts.
+                                </p>
+
+                                <a href="{% url 'add_admin' %}"
+                                   class="add-admin-btn">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Add New Admin
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================================
+     SEARCH SCRIPT
+     ========================================================== -->
+
+<script>
+
+const searchInput = document.getElementById("adminSearch");
+
+searchInput.addEventListener("keyup", function () {
+
+    const searchValue =
+        this.value.toLowerCase();
+
+    const rows =
+        document.querySelectorAll("#adminTable tbody tr");
+
+    rows.forEach(function (row) {
+
+        const text =
+            row.textContent.toLowerCase();
+
+        if (text.includes(searchValue)) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+});
+
+</script>
+
+
+</body>
+
+</html>

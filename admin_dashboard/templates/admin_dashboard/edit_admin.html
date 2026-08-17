@@ -1,0 +1,387 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Admin | PSRS</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/dashboard.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/edit_admin.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- ======================================================
+     SIDEBAR
+     ====================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>PSRS</h2>
+
+    </div>
+
+
+    <ul>
+
+        <li>
+
+            <a href="{% url 'admin_dashboard' %}">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="{% url 'admin_reports' %}">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>Incident Reports</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="{% url 'admin_sos' %}">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <span>SOS Alerts</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>Live Locations</span>
+
+            </a>
+
+        </li>
+
+
+        <li class="active">
+
+            <a href="{% url 'admin_list' %}">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                <span>Manage Admins</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>Analytics</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="{% url 'notification_list' %}">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <span>Notifications</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="{% url 'logout' %}">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ======================================================
+     MAIN
+     ====================================================== -->
+
+<div class="main">
+
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <h1>
+            Edit Admin
+        </h1>
+
+
+        <div class="top-right">
+
+            <a href="{% url 'notification_list' %}"
+               class="notification">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </a>
+
+
+            <div class="admin">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Super Admin
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         EDIT ADMIN FORM
+         ================================================== -->
+
+    <div class="edit-admin-container">
+
+
+        <div class="edit-admin-card">
+
+
+            <!-- HEADER -->
+
+            <div class="form-header">
+
+                <div class="form-icon">
+
+                    <i class="fa-solid fa-user-pen"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h2>Edit Administrator</h2>
+
+                    <p>
+                        Update the administrator's account information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            {% if error %}
+
+                <div class="form-error">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span>{{ error }}</span>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value="{{ admin.username }}"
+                            placeholder="Enter username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ admin.email }}"
+                            placeholder="Enter email address"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label for="is_active">
+                        Account Status
+                    </label>
+
+                    <div class="status-wrapper">
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="is_active"
+                                name="is_active"
+                                {% if admin.is_active %}checked{% endif %}
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+
+                        <span class="status-text">
+
+                            Active Administrator
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ACTIONS -->
+
+                <div class="form-actions">
+
+                    <a href="{% url 'admin_list' %}"
+                       class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button type="submit"
+                            class="save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics | Admin Dashboard</title>
+
+    <!-- Analytics CSS -->
+    <link rel="stylesheet" href="{% static 'css/analytics.css' %}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="analytics-container">
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <div class="analytics-header">
+
+        <div>
+            <h1>Analytics</h1>
+
+            <p>
+                Overview of public safety reports and emergency alerts
+            </p>
+        </div>
+
+        <a href="{% url 'admin_dashboard' %}" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUMMARY CARDS
+    =========================================== -->
+
+    <div class="stats-grid">
+
+        <!-- TOTAL REPORTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📋
+            </div>
+
+            <div class="stat-content">
+
+                <h3>Total Reports</h3>
+
+                <div class="stat-number">
+                    {{ total_reports }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESOLVED REPORTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✓
+            </div>
+
+            <div class="stat-content">
+
+                <h3>Resolved Reports</h3>
+
+                <div class="stat-number">
+                    {{ resolved_reports }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING REPORTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏳
+            </div>
+
+            <div class="stat-content">
+
+                <h3>Pending Reports</h3>
+
+                <div class="stat-number">
+                    {{ pending_reports }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVE SOS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🚨
+            </div>
+
+            <div class="stat-content">
+
+                <h3>Active SOS</h3>
+
+                <div class="stat-number">
+                    {{ active_sos }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL SOS -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🆘
+            </div>
+
+            <div class="stat-content">
+
+                <h3>Total SOS</h3>
+
+                <div class="stat-number">
+                    {{ total_sos }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         CHARTS
+    =========================================== -->
+
+    <div class="charts-grid">
+
+
+        <!-- ======================================
+             INCIDENT TYPE PIE CHART
+        ======================================= -->
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h2>Incidents by Type</h2>
+
+                    <p>
+                        Distribution of reported incidents
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="chart-wrapper">
+
+                <canvas id="incidentChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             PRIORITY DOUGHNUT CHART
+        ======================================= -->
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h2>Reports by Priority</h2>
+
+                    <p>
+                        Distribution based on report priority
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="chart-wrapper">
+
+                <canvas id="priorityChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             SOS STATUS BAR CHART
+        ======================================= -->
+
+        <div class="chart-card full-width">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h2>SOS Alerts by Status</h2>
+
+                    <p>
+                        Current status distribution of SOS alerts
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="chart-wrapper bar-chart">
+
+                <canvas id="sosChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     DATA FOR JAVASCRIPT
+=========================================== -->
+
+<script id="incident-labels" type="application/json">
+    {{ labels|safe }}
+</script>
+
+<script id="incident-values" type="application/json">
+    {{ values|safe }}
+</script>
+
+<script id="priority-labels" type="application/json">
+    {{ priority_labels|safe }}
+</script>
+
+<script id="priority-values" type="application/json">
+    {{ priority_values|safe }}
+</script>
+
+<script id="sos-labels" type="application/json">
+    {{ sos_labels|safe }}
+</script>
+
+<script id="sos-values" type="application/json">
+    {{ sos_values|safe }}
+</script>
+
+
+<!-- Analytics JavaScript -->
+
+<script src="{% static 'js/analytics.js' %}"></script>
+
+</body>
+
+</html>

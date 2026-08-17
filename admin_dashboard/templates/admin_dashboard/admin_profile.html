@@ -1,0 +1,159 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/admin_profile.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <div class="profile-card">
+
+        <!-- HEADER -->
+        <div class="profile-header">
+            <div class="profile-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div>
+                <h1>
+                    {% if request.user.is_superuser %}
+                        Super Admin
+                    {% else %}
+                        Admin
+                    {% endif %}
+                </h1>
+
+                <p>Administrator Profile</p>
+            </div>
+        </div>
+
+
+        <!-- PROFILE DETAILS -->
+        <div class="profile-details">
+
+            <!-- Username -->
+            <div class="profile-row">
+                <div class="detail-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="detail-content">
+                    <span class="detail-label">Username</span>
+                    <strong>{{ request.user.username }}</strong>
+                </div>
+            </div>
+
+
+            <!-- Email -->
+            <div class="profile-row">
+                <div class="detail-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div class="detail-content">
+                    <span class="detail-label">Email</span>
+                    <strong>{{ request.user.email }}</strong>
+                </div>
+            </div>
+
+
+            <!-- Role -->
+            <div class="profile-row">
+                <div class="detail-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div class="detail-content">
+                    <span class="detail-label">Role</span>
+
+                    <strong>
+                        {% if request.user.is_superuser %}
+                            Super Admin
+                        {% else %}
+                            Admin
+                        {% endif %}
+                    </strong>
+                </div>
+            </div>
+
+
+            <!-- Status -->
+            <div class="profile-row">
+                <div class="detail-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div class="detail-content">
+                    <span class="detail-label">Status</span>
+
+                    {% if request.user.is_active %}
+                        <strong class="status-active">Active</strong>
+                    {% else %}
+                        <strong class="status-inactive">Inactive</strong>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <!-- Staff Status -->
+            <div class="profile-row">
+                <div class="detail-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <div class="detail-content">
+                    <span class="detail-label">Staff Access</span>
+
+                    {% if request.user.is_staff %}
+                        <strong>Enabled</strong>
+                    {% else %}
+                        <strong>Disabled</strong>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+        <div class="profile-actions">
+
+            <a href="{% url 'admin_dashboard' %}"
+               class="btn btn-secondary">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Dashboard
+
+            </a>
+
+
+            <a href="{% url 'logout' %}"
+               class="btn btn-danger">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

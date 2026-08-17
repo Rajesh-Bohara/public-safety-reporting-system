@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin | Incident Reports</title>
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/reports.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<h1>
+
+    <i class="fa-solid fa-file-lines"></i>
+
+    Incident Reports
+
+</h1>
+
+
+<!-- ========================= -->
+<!-- Search -->
+<!-- ========================= -->
+
+<div class="top-bar">
+
+    <input
+        type="text"
+        placeholder="Search reports...">
+
+    <select>
+
+        <option>All Status</option>
+
+        <option>Pending</option>
+
+        <option>Under Review</option>
+
+        <option>Resolved</option>
+
+        <option>Rejected</option>
+
+    </select>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- Reports Table -->
+<!-- ========================= -->
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Reporter</th>
+
+            <th>Incident</th>
+
+            <th>Priority</th>
+
+            <th>Status</th>
+
+            <th>Date</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+
+    {% for report in reports %}
+
+        <tr>
+
+            <!-- ID -->
+
+            <td>
+                {{ report.id }}
+            </td>
+
+
+            <!-- Reporter -->
+
+            <td>
+
+                {% if report.anonymous or not report.user %}
+
+                    <span class="anonymous-user">
+
+                        <i class="fa-solid fa-user-secret"></i>
+
+                        Anonymous
+
+                    </span>
+
+                {% else %}
+
+                    {{ report.user.first_name|default:report.user.username }}
+
+                {% endif %}
+
+            </td>
+
+
+            <!-- Incident -->
+
+            <td>
+                {{ report.incident_type }}
+            </td>
+
+
+            <!-- Priority -->
+
+            <td>
+                {{ report.priority }}
+            </td>
+
+
+            <!-- Status -->
+
+            <td>
+
+                <span class="status {{ report.status|slugify }}">
+
+                    {{ report.status }}
+
+                </span>
+
+            </td>
+
+
+            <!-- Date -->
+
+            <td>
+
+                {{ report.submitted_at|date:"d M Y" }}
+
+            </td>
+
+
+            <!-- Action -->
+
+            <td>
+
+                <a
+                    href="{% url 'admin_report_detail' report.id %}"
+                    class="view-btn">
+
+                    View
+
+                </a>
+
+            </td>
+
+        </tr>
+
+
+    {% empty %}
+
+        <tr>
+
+            <td colspan="7">
+
+                No Reports Found
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+</body>
+
+</html>

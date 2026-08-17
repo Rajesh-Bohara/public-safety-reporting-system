@@ -1,0 +1,351 @@
+{% load static %}
+{% load tz %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SOS History</title>
+
+    <link rel="stylesheet"
+          href="{% static 'sos/css/history.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <div class="header-title">
+
+            <div class="header-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div>
+
+                <h1>My SOS History</h1>
+
+                <p>
+                    View all emergency alerts you have submitted
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a href="{% url 'dashboard' %}"
+           class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>Back to Dashboard</span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HISTORY CONTENT
+         ===================================================== -->
+
+    <div class="history-content">
+
+
+        {% if alerts %}
+
+
+        <div class="table-wrapper">
+
+
+            <table>
+
+
+                <!-- TABLE HEADER -->
+
+                <thead>
+
+                    <tr>
+
+                        <th class="number-column">
+                            #
+                        </th>
+
+                        <th>
+                            Emergency
+                        </th>
+
+                        <th>
+                            Date & Time
+                        </th>
+
+                        <th>
+                            Location
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th class="action-column">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <!-- TABLE BODY -->
+
+                <tbody>
+
+
+                {% for sos in alerts %}
+
+
+                    <tr>
+
+
+                        <!-- NUMBER -->
+
+                        <td class="number-cell">
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+
+
+                        <!-- EMERGENCY TYPE -->
+
+                        <td class="emergency-cell">
+
+                            <div class="emergency-info">
+
+                                <div class="emergency-icon">
+
+                                    <i class="fa-solid fa-bolt"></i>
+
+                                </div>
+
+                                <span>
+                                    {{ sos.emergency_type }}
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- DATE -->
+
+                        <td class="date-cell">
+
+                            {% timezone "Asia/Kathmandu" %}
+
+                                <div class="date-info">
+
+                                    <strong>
+                                        {{ sos.created_at|date:"M d, Y" }}
+                                    </strong>
+
+                                    <span>
+                                        {{ sos.created_at|date:"h:i A" }}
+                                    </span>
+
+                                </div>
+
+                            {% endtimezone %}
+
+                        </td>
+
+
+
+                        <!-- LOCATION -->
+
+                        <td class="location-cell">
+
+                            {% if sos.latitude and sos.longitude %}
+
+                                <div class="location-info">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <span>
+                                        {{ sos.latitude }},
+                                        {{ sos.longitude }}
+                                    </span>
+
+                                </div>
+
+                            {% elif sos.location %}
+
+                                <div class="location-info">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <span>
+                                        {{ sos.location }}
+                                    </span>
+
+                                </div>
+
+                            {% else %}
+
+                                <span class="no-location">
+                                    Location unavailable
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if sos.status == "Pending" %}
+
+                                <span class="status status-pending">
+
+                                    <span class="status-dot"></span>
+
+                                    Pending
+
+                                </span>
+
+                            {% elif sos.status == "Responding" %}
+
+                                <span class="status status-responding">
+
+                                    <span class="status-dot"></span>
+
+                                    Responding
+
+                                </span>
+
+                            {% elif sos.status == "Resolved" %}
+
+                                <span class="status status-resolved">
+
+                                    <span class="status-dot"></span>
+
+                                    Resolved
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="status">
+
+                                    {{ sos.status }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- VIEW BUTTON -->
+
+                        <td class="action-cell">
+
+                            <a href="{% url 'sos_detail' sos.id %}"
+                               class="view-btn">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                <span>View</span>
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             EMPTY HISTORY
+             ================================================= -->
+
+        <div class="empty-history">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+            </div>
+
+            <h2>No SOS Alerts Yet</h2>
+
+            <p>
+                You have not submitted any SOS emergency alerts.
+            </p>
+
+            <a href="{% url 'sos' %}" class="send-sos-btn">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                Send SOS
+
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

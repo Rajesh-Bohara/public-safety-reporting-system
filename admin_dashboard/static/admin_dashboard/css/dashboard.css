@@ -1,0 +1,791 @@
+/* ==========================================================
+   RESET
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   HTML / BODY
+   ========================================================== */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #eef1f4;
+
+    color: #1f2937;
+}
+
+
+/* ==========================================================
+   SIDEBAR
+   ========================================================== */
+
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: #1c222b;
+
+    padding-top: 25px;
+
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+
+/* ==========================================================
+   LOGO
+   ========================================================== */
+
+.logo {
+    padding: 0 25px 30px;
+}
+
+.logo h2 {
+    color: #ffffff;
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* ==========================================================
+   SIDEBAR MENU
+   ========================================================== */
+
+.sidebar ul {
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+
+/* ==========================================================
+   SIDEBAR MENU ITEM
+   ========================================================== */
+
+.sidebar ul li {
+    margin: 5px 12px;
+}
+
+
+/* ==========================================================
+   SIDEBAR LINK
+   ========================================================== */
+
+.sidebar ul li a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+/* ==========================================================
+   SIDEBAR ICON
+   ========================================================== */
+
+.sidebar ul li a i {
+    width: 20px;
+
+    min-width: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #ffffff;
+}
+
+
+/* ==========================================================
+   SIDEBAR HOVER
+   ========================================================== */
+
+.sidebar ul li a:hover {
+    background: #343b45;
+
+    color: #ffffff;
+}
+
+.sidebar ul li a:hover i {
+    color: #ffffff;
+}
+
+
+/* ==========================================================
+   ACTIVE SIDEBAR ITEM
+   ========================================================== */
+
+.sidebar ul li.active a {
+    background: #343b45;
+
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+.sidebar ul li.active a i {
+    color: #ffffff;
+}
+
+
+/* ==========================================================
+   MAIN CONTENT
+   ========================================================== */
+
+.main {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    min-height: 100vh;
+
+    padding: 25px 30px;
+}
+
+
+/* ==========================================================
+   TOP BAR
+   ========================================================== */
+
+.topbar {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    width: 100%;
+
+    background: #ffffff;
+
+    padding: 18px 22px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 25px;
+}
+
+.topbar h1 {
+    margin: 0;
+
+    font-size: 24px;
+
+    color: #1c222b;
+}
+
+
+/* ==========================================================
+   TOP RIGHT
+   ========================================================== */
+
+.top-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+/* ==========================================================
+   NOTIFICATION
+   ========================================================== */
+
+.notification {
+    position: relative;
+
+    color: #475569;
+
+    text-decoration: none;
+
+    font-size: 20px;
+}
+
+.notification:hover {
+    color: #1c222b;
+}
+
+
+/* ==========================================================
+   NOTIFICATION BADGE
+   ========================================================== */
+
+.badge {
+    position: absolute;
+
+    top: -8px;
+
+    right: -9px;
+
+    min-width: 18px;
+
+    height: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 2px 5px;
+
+    background: #dc2626;
+
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   ADMIN
+   ========================================================== */
+
+.admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #334155;
+
+    font-weight: 600;
+}
+
+.admin i {
+    color: #475569;
+}
+
+/* ==========================================================
+   ADMIN PROFILE LINK
+   ========================================================== */
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #334155;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-profile > i:first-child {
+    color: #475569;
+}
+
+.admin-profile:hover {
+    color: #1c222b;
+}
+
+.admin-profile:hover > i:first-child {
+    color: #1c222b;
+}
+
+.profile-arrow {
+    font-size: 11px;
+    margin-left: 2px;
+    color: #64748b !important;
+}
+/* ==========================================================
+   DASHBOARD CARDS
+   ========================================================== */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================================
+   CARD
+   ========================================================== */
+
+.card {
+    min-width: 0;
+
+    background: #ffffff;
+
+    padding: 22px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* ==========================================================
+   CARD HOVER
+   ========================================================== */
+
+.card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================================
+   CARD ICON
+   ========================================================== */
+
+.card i {
+    font-size: 22px;
+
+    color: #475569;
+
+    margin-bottom: 12px;
+}
+
+
+/* ==========================================================
+   CARD NUMBER
+   ========================================================== */
+
+.card h2 {
+    font-size: 28px;
+
+    color: #1c222b;
+
+    margin-bottom: 5px;
+}
+
+
+/* ==========================================================
+   CARD LABEL
+   ========================================================== */
+
+.card p {
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================================
+   CONTENT
+   ========================================================== */
+
+.content {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+
+/* ==========================================================
+   PANEL
+   ========================================================== */
+
+.panel {
+    min-width: 0;
+
+    background: #ffffff;
+
+    padding: 22px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================================
+   PANEL TITLE
+   ========================================================== */
+
+.panel h2 {
+    font-size: 18px;
+
+    color: #1c222b;
+
+    margin-bottom: 18px;
+}
+
+
+/* ==========================================================
+   TABLE
+   ========================================================== */
+
+.panel table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+/* ==========================================================
+   TABLE HEADER
+   ========================================================== */
+
+.panel table th {
+    text-align: left;
+
+    padding: 12px 10px;
+
+    background: #f5f6f7;
+
+    color: #475569;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   TABLE DATA
+   ========================================================== */
+
+.panel table td {
+    padding: 12px 10px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    font-size: 14px;
+
+    color: #334155;
+}
+
+
+/* ==========================================================
+   NOTIFICATION PANEL
+   ========================================================== */
+
+.notification-panel {
+    grid-column: 1 / -1;
+}
+
+
+/* ==========================================================
+   PANEL HEADER
+   ========================================================== */
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.panel-header h2 {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================
+   VIEW ALL
+   ========================================================== */
+
+.view-all {
+    color: #475569;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.view-all:hover {
+    color: #1c222b;
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================================
+   NOTIFICATION LIST
+   ========================================================== */
+
+.notification-panel ul {
+    list-style: none;
+
+    margin-top: 18px;
+
+    padding: 0;
+}
+
+
+/* ==========================================================
+   NOTIFICATION ITEM
+   ========================================================== */
+
+.notification-panel li {
+    padding: 12px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+}
+
+
+/* ==========================================================
+   NOTIFICATION LINK
+   ========================================================== */
+
+.notification-panel li a {
+    text-decoration: none;
+
+    color: #334155;
+}
+
+
+/* ==========================================================
+   NOTIFICATION TITLE
+   ========================================================== */
+
+.notification-panel li strong {
+    color: #1c222b;
+}
+
+
+/* ==========================================================
+   NOTIFICATION MESSAGE
+   ========================================================== */
+
+.notification-panel li small {
+    color: #64748b;
+}
+
+
+/* ==========================================================
+   UNREAD NOTIFICATION
+   ========================================================== */
+
+.notification-panel li.unread {
+    background: #f5f6f7;
+}
+
+
+/* ==========================================================
+   SIDEBAR SCROLLBAR
+   ========================================================== */
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #1c222b;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #414955;
+
+    border-radius: 10px;
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1100px) {
+
+    .cards {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================================
+   SMALL TABLET
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+
+        width: calc(100% - 210px);
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-panel {
+        grid-column: auto;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .top-right {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+}
+
+/* ==========================================================
+   DARK THEME
+   ========================================================== */
+
+body.dark-theme {
+    background: #11161d;
+    color: #e5e7eb;
+}
+
+body.dark-theme .topbar,
+body.dark-theme .card,
+body.dark-theme .panel {
+    background: #1c222b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-theme .topbar h1,
+body.dark-theme .card h2,
+body.dark-theme .panel h2,
+body.dark-theme .notification-panel li strong {
+    color: #ffffff;
+}
+
+body.dark-theme .card p,
+body.dark-theme .notification-panel li small {
+    color: #9ca3af;
+}
+
+body.dark-theme .admin {
+    color: #d1d5db;
+}
+
+body.dark-theme .admin i,
+body.dark-theme .notification {
+    color: #cbd5e1;
+}
+
+body.dark-theme .panel table th {
+    background: #242b35;
+    color: #cbd5e1;
+}
+
+body.dark-theme .panel table td {
+    color: #d1d5db;
+    border-bottom-color: #343b45;
+}
+
+body.dark-theme .notification-panel li {
+    border-bottom-color: #343b45;
+}
+
+body.dark-theme .notification-panel li.unread {
+    background: #242b35;
+}
+
+body.dark-theme .view-all {
+    color: #cbd5e1;
+}

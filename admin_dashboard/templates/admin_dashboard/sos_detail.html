@@ -1,0 +1,659 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency SOS Details</title>
+
+
+    <link rel="stylesheet"
+          href="{% static 'admin_dashboard/css/sos_detail.css' %}">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =================================================
+         PAGE TITLE
+    ================================================== -->
+
+    <h1>
+
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        Emergency SOS Details
+
+    </h1>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- =================================================
+             USER INFORMATION
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>User Information</h2>
+
+
+            <!-- FULL NAME -->
+
+            <p>
+
+                <strong>Name :</strong>
+
+                {% if sos.user %}
+
+                    {% if sos.user.get_full_name %}
+
+                        {{ sos.user.get_full_name }}
+
+                    {% else %}
+
+                        {{ sos.user.username }}
+
+                    {% endif %}
+
+                {% else %}
+
+                    Anonymous
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- EMAIL -->
+
+            <p>
+
+                <strong>Email :</strong>
+
+                {% if sos.user %}
+
+                    {% if sos.user.email %}
+
+                        {{ sos.user.email }}
+
+                    {% else %}
+
+                        Email not available
+
+                    {% endif %}
+
+                {% else %}
+
+                    Not available
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SOS INFORMATION
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>Emergency Information</h2>
+
+
+            <!-- EMERGENCY TYPE -->
+
+            <p>
+
+                <strong>Emergency Type :</strong>
+
+                {{ sos.emergency_type }}
+
+            </p>
+
+
+            <!-- DATE AND TIME -->
+
+            <p>
+
+                <strong>Date & Time :</strong>
+
+                {{ sos.created_at|date:"M d, Y, h:i A" }}
+
+            </p>
+
+
+            <hr>
+
+
+            <!-- LOCATION -->
+
+            <h3>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Location Information
+
+            </h3>
+
+
+            <p>
+
+                <strong>Address :</strong><br>
+
+                {% if sos.location %}
+
+                    {{ sos.location }}
+
+                {% else %}
+
+                    Location address not available
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- LATITUDE -->
+
+            <p>
+
+                <strong>Latitude :</strong>
+
+                {% if sos.latitude %}
+
+                    {{ sos.latitude }}
+
+                {% else %}
+
+                    Not available
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- LONGITUDE -->
+
+            <p>
+
+                <strong>Longitude :</strong>
+
+                {% if sos.longitude %}
+
+                    {{ sos.longitude }}
+
+                {% else %}
+
+                    Not available
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- =================================================
+                 MAP
+            ================================================== -->
+
+            {% if sos.latitude and sos.longitude %}
+
+                <h3>
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    Emergency Location Map
+
+                </h3>
+
+
+                <div id="sos-map"></div>
+
+
+                <br>
+
+
+                <a
+                    href="https://www.google.com/maps?q={{ sos.latitude }},{{ sos.longitude }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="map-btn"
+                >
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                    View Exact Location
+
+                </a>
+
+
+            {% else %}
+
+                <p style="color:red;font-weight:bold;">
+
+                    Location not available.
+
+                </p>
+
+            {% endif %}
+
+
+            <hr>
+
+
+            <!-- =================================================
+                 EMERGENCY MESSAGE
+            ================================================== -->
+
+            <p>
+
+                <strong>Emergency Message :</strong>
+
+            </p>
+
+
+            <div class="message">
+
+                {% if sos.message %}
+
+                    {{ sos.message }}
+
+                {% else %}
+
+                    No emergency message provided.
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EVIDENCE
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-photo-film"></i>
+
+                Evidence
+
+            </h2>
+
+
+            <!-- =================================================
+                 PHOTO
+            ================================================== -->
+
+            <h3>
+
+                <i class="fa-solid fa-image"></i>
+
+                Photo
+
+            </h3>
+
+
+            {% if sos.photo %}
+
+                <img
+                    src="{{ sos.photo.url }}"
+                    class="photo"
+                    alt="SOS Evidence Photo"
+                >
+
+            {% else %}
+
+                <p>
+
+                    No Photo Uploaded
+
+                </p>
+
+            {% endif %}
+
+
+
+            <hr>
+
+
+
+            <!-- =================================================
+                 VIDEO
+            ================================================== -->
+
+            <h3>
+
+                <i class="fa-solid fa-video"></i>
+
+                Video
+
+            </h3>
+
+
+            {% if sos.video %}
+
+                <video
+                    class="sos-video"
+                    controls
+                    playsinline
+                    preload="metadata"
+                >
+
+                    <source
+                        src="{{ sos.video.url }}"
+                        type="video/webm"
+                    >
+
+                    Your browser does not support video playback.
+
+                </video>
+
+
+                <p>
+
+                    <a
+                        href="{{ sos.video.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <i class="fa-solid fa-play"></i>
+
+                        Open Video
+
+                    </a>
+
+                </p>
+
+            {% else %}
+
+                <p>
+
+                    No Video Uploaded
+
+                </p>
+
+            {% endif %}
+
+
+
+            <hr>
+
+
+
+            <!-- =================================================
+                 AUDIO
+            ================================================== -->
+
+            <h3>
+
+                <i class="fa-solid fa-microphone"></i>
+
+                Audio
+
+            </h3>
+
+
+            {% if sos.audio %}
+
+                <audio
+                    controls
+                    preload="metadata"
+                >
+
+                    <source
+                        src="{{ sos.audio.url }}"
+                    >
+
+                    Your browser does not support audio playback.
+
+                </audio>
+
+
+                <p>
+
+                    <a
+                        href="{{ sos.audio.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <i class="fa-solid fa-volume-high"></i>
+
+                        Open Audio
+
+                    </a>
+
+                </p>
+
+            {% else %}
+
+                <p>
+
+                    No Audio Uploaded
+
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =================================================
+             ADMIN ACTION
+        ================================================== -->
+
+        <div class="card">
+
+            <h2>
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Admin Action
+
+            </h2>
+
+
+            <!-- STATUS -->
+
+            <label>
+
+                Status
+
+            </label>
+
+
+            <select name="status">
+
+                <option
+                    value="Pending"
+                    {% if sos.status == "Pending" %}selected{% endif %}
+                >
+
+                    Pending
+
+                </option>
+
+
+                <option
+                    value="Responding"
+                    {% if sos.status == "Responding" %}selected{% endif %}
+                >
+
+                    Responding
+
+                </option>
+
+
+                <option
+                    value="Resolved"
+                    {% if sos.status == "Resolved" %}selected{% endif %}
+                >
+
+                    Resolved
+
+                </option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <!-- ADMIN REMARK -->
+
+            <label>
+
+                Admin Remark
+
+            </label>
+
+
+            <textarea
+                name="admin_remark"
+                rows="6"
+                placeholder="Enter your response or remark..."
+            >{{ sos.admin_remark }}</textarea>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
+
+        <div class="buttons">
+
+            <button type="submit">
+
+                <i class="fa-solid fa-save"></i>
+
+                Save Changes
+
+            </button>
+
+
+            <a href="{% url 'admin_sos' %}">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back
+
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     LEAFLET MAP
+====================================================== -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<script>
+
+const latitude = "{{ sos.latitude }}";
+
+const longitude = "{{ sos.longitude }}";
+
+
+if (
+    latitude &&
+    longitude &&
+    !isNaN(parseFloat(latitude)) &&
+    !isNaN(parseFloat(longitude))
+) {
+
+    const lat = parseFloat(latitude);
+
+    const lng = parseFloat(longitude);
+
+
+    const map = L.map("sos-map").setView(
+
+        [lat, lng],
+
+        16
+
+    );
+
+
+    L.tileLayer(
+
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+        {
+
+            attribution:
+                "© OpenStreetMap contributors"
+
+        }
+
+    ).addTo(map);
+
+
+    L.marker(
+
+        [lat, lng]
+
+    )
+
+    .addTo(map)
+
+    .bindPopup(
+
+        "Emergency SOS Location"
+
+    )
+
+    .openPopup();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

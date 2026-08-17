@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Notifications</title>
+
+    <link rel="stylesheet"
+          href="{% static 'notifications/css/notifications.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔔 Notifications</h1>
+
+    <a href="{% url 'mark_all_read' %}" class="mark-all">
+
+        Mark All as Read
+
+    </a>
+
+    {% for notification in notifications %}
+
+    <div class="card {% if not notification.is_read %}unread{% endif %}">
+
+        <h3>
+
+            {{ notification.title }}
+
+        </h3>
+
+        <p>
+
+            {{ notification.message }}
+
+        </p>
+
+        <small>
+
+            {{ notification.created_at }}
+
+        </small>
+
+        <br><br>
+
+        <a href="{% url 'notification_detail' notification.pk %}">
+
+            Open Report
+
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <h3>No Notifications</h3>
+
+    {% endfor %}
+
+</div>
+
+</body>
+
+</html>
