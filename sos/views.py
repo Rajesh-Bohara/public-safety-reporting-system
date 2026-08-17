@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-import os
 
 from .models import SOSAlert
 from notifications.models import Notification
@@ -27,7 +26,6 @@ def sos_page(request):
             request,
             "sos/sos.html"
         )
-
 
     # ========================================================
     # SUBMIT SOS
@@ -70,7 +68,6 @@ def sos_page(request):
             "audio"
         )
 
-
         # ====================================================
         # VALIDATION
         # ====================================================
@@ -84,12 +81,8 @@ def sos_page(request):
 
             return redirect("sos")
 
-
         # ====================================================
         # USER
-        # ====================================================
-        # Logged-in user → save their User object
-        # Guest user      → save None
         # ====================================================
 
         report_user = (
@@ -97,7 +90,6 @@ def sos_page(request):
             if request.user.is_authenticated
             else None
         )
-
 
         # ====================================================
         # CREATE SOS
@@ -127,7 +119,6 @@ def sos_page(request):
 
             admin_remark=None
         )
-
 
         # ====================================================
         # DETERMINE REPORTER
@@ -161,7 +152,6 @@ def sos_page(request):
             reporter_name = "Anonymous user"
             reporter_phone = "Hidden"
 
-
         # ====================================================
         # NOTIFY ALL ADMINS
         # ====================================================
@@ -170,13 +160,6 @@ def sos_page(request):
             is_staff=True,
             is_active=True
         )
-
-
-        # Create a notification for every active admin.
-        #
-        # This includes:
-        # - Super Admin
-        # - Normal Admin
 
         for admin in admins:
 
@@ -196,16 +179,6 @@ def sos_page(request):
                 sos=sos
             )
 
-
-        # ====================================================
-        # SEND SMS TO AUTHORITY
-        # ====================================================
-
-        authority_phone = os.getenv(
-            "SAFETY_AUTHORITY_PHONE"
-        )
-
-
         # ====================================================
         # CREATE GOOGLE MAPS LINK
         # ====================================================
@@ -220,7 +193,6 @@ def sos_page(request):
         else:
 
             map_link = sos.location
-
 
         # ====================================================
         # CREATE SOS SMS MESSAGE
@@ -246,18 +218,14 @@ def sos_page(request):
             "IMMEDIATE ASSISTANCE MAY BE REQUIRED."
         )
 
-
         # ====================================================
-        # SEND SMS
+        # SEND SMS TO ALL AUTHORITIES
         # ====================================================
 
-        if authority_phone:
-
-            send_sms(
-                authority_phone,
-                sms_message
-            )
-
+        send_sms(
+            None,
+            sms_message
+        )
 
         # ====================================================
         # SUCCESS MESSAGE
@@ -268,15 +236,11 @@ def sos_page(request):
             "SOS alert sent successfully."
         )
 
-
         # ====================================================
         # REDIRECT
         # ====================================================
-        # Both guest and logged-in users use /dashboard/
-        # ====================================================
 
         return redirect("dashboard")
-
 
     # ========================================================
     # FALLBACK

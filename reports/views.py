@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-import os
 
 from .models import IncidentReport
 from notifications.models import Notification
@@ -98,13 +97,6 @@ def report(request):
             is_active=True
         )
 
-        # Create one notification for
-        # every active admin account.
-        #
-        # This includes:
-        # - Super Admin
-        # - Normal Admin
-
         for admin in admins:
 
             Notification.objects.create(
@@ -122,14 +114,6 @@ def report(request):
 
                 report=report
             )
-
-        # ==========================
-        # SEND SMS TO AUTHORITY
-        # ==========================
-
-        authority_phone = os.getenv(
-            "SAFETY_AUTHORITY_PHONE"
-        )
 
         # ==========================
         # CREATE GOOGLE MAPS LINK
@@ -171,15 +155,13 @@ def report(request):
         )
 
         # ==========================
-        # SEND SMS
+        # SEND SMS TO ALL AUTHORITIES
         # ==========================
 
-        if authority_phone:
-
-            send_sms(
-                authority_phone,
-                sms_message
-            )
+        send_sms(
+            None,
+            sms_message
+        )
 
         # ==========================
         # REDIRECT AFTER EVERYTHING
