@@ -2,10 +2,18 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Build paths inside the project
+
+# =========================================================
+# BASE DIRECTORY
+# =========================================================
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load local .env file
+
+# =========================================================
+# LOAD ENVIRONMENT VARIABLES
+# =========================================================
+
 load_dotenv(BASE_DIR / ".env")
 
 
@@ -13,9 +21,11 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY
 # =========================================================
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+# Supports both DJANGO_SECRET_KEY and SECRET_KEY
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY") or os.getenv("SECRET_KEY")
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+# Local development defaults to True
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -61,7 +71,7 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
 
-    # WhiteNoise for static files on Render
+    # WhiteNoise for serving static files
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,9 +113,13 @@ TEMPLATES = [
 
         'OPTIONS': {
             'context_processors': [
+
                 'django.template.context_processors.request',
+
                 'django.contrib.auth.context_processors.auth',
+
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -113,17 +127,28 @@ TEMPLATES = [
 
 
 # =========================================================
-# DATABASE
+# DATABASE - POSTGRESQL
 # =========================================================
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+
         'NAME': os.getenv('DB_NAME'),
+
         'USER': os.getenv('DB_USER'),
+
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+
+        'HOST': os.getenv(
+            'DB_HOST',
+            'localhost'
+        ),
+
+        'PORT': os.getenv(
+            'DB_PORT',
+            '5432'
+        ),
     }
 }
 
@@ -153,6 +178,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME':
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+
 ]
 
 
@@ -178,6 +204,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
+# =========================================================
+# DJANGO 6 STORAGE CONFIGURATION
+# =========================================================
+
 STORAGES = {
 
     'default': {
@@ -189,6 +219,7 @@ STORAGES = {
         'BACKEND':
         'whitenoise.storage.CompressedManifestStaticFilesStorage',
     },
+
 }
 
 
@@ -224,3 +255,10 @@ AAKASH_SMS_URL = os.getenv(
     'AAKASH_SMS_URL',
     'https://sms.aakashsms.com/sms/v3/send/'
 )
+
+
+# =========================================================
+# DEFAULT PRIMARY KEY
+# =========================================================
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
