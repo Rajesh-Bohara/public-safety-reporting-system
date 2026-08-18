@@ -31,7 +31,7 @@ urlpatterns = [
     path("sos/", include("sos.urls")),
      path("admin_dashboard/", include("admin_dashboard.urls")),
     path( "notifications/", include("notifications.urls")),
-    path('accounts/', include('allauth.urls')),
+   
 ]
 if settings.DEBUG:
 
